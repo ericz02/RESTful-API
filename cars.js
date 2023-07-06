@@ -1,0 +1,48 @@
+const cars = [
+  {
+    id: 1,
+    make: "Toyota",
+    model: "Camry",
+    year: 2022,
+    color: "Silver",
+    price: 25000,
+    mileage: 15000,
+    location: "Los Angeles, CA",
+    imageUrl: "https://example.com/images/toyota_camry.jpg",
+  },
+  {
+    id: 2,
+    make: "Honda",
+    model: "Civic",
+    year: 2021,
+    color: "Black",
+    price: 22000,
+    mileage: 18000,
+    location: "New York, NY",
+    imageUrl: "https://example.com/images/honda_civic.jpg",
+  },
+  {
+    id: 3,
+    make: "Ford",
+    model: "Mustang",
+    year: 2020,
+    color: "Red",
+    price: 35000,
+    mileage: 12000,
+    location: "Chicago, IL",
+    imageUrl: "https://example.com/images/ford_mustang.jpg",
+  },
+  {
+    id: 4,
+    make: "Chevrolet",
+    model: "Camaro",
+    year: 2023,
+    color: "Yellow",
+    price: 40000,
+    mileage: 5000,
+    location: "Houston, TX",
+    imageUrl: "https://example.com/images/chevrolet_camaro.jpg",
+  },
+];
+
+module.exports = cars;
