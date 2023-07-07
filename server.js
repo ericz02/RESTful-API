@@ -61,12 +61,15 @@ app.patch("/cars/:id", (req, res) => {
   const carIndex = cars.findIndex(car => car.id === carId);
   const updatedCar = { ...cars[carIndex], ...carUpdates };
   cars[carIndex] = updatedCar;
-  console.log("updatedCar", updatedCar)
+  // console.log("updatedCar", updatedCar)
   res.send(updatedCar);
 
 })
 
 // delete a specific car
 app.delete("/cars/:id", (req, res) => {
-
+  const carId = parseInt(req.params.id, 10);
+  const carIndex = cars.findIndex(car => car.id === carId);
+  cars.splice(carIndex, 1);
+  res.send({ message: "Car deleted sucessfully" });
 })
