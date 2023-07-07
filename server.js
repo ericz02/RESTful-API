@@ -10,6 +10,21 @@ app.use((req, res, next) => {
 
 app.use(express.json()) 
 
+function getNextIdFromCollection(collection) {
+  if (collection.length === 0) return 1;
+  const lastRecord = collection[collection.length - 1];
+  return lastRecord.id + 1;
+}
+
+app.post("/cars", (req, res) => {
+  const newCar = {
+    ...req.body,
+    id: getNextIdFromCollection(cars)
+  };
+  console.log(newCar, "newCar")
+  cars.push(newCar)
+  res.send(newCar)
+})
 
 app.get("/", (req, res) => {
   res.send("Hello! Car API")
