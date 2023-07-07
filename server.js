@@ -4,7 +4,9 @@ const port = 4000;
 const cars = require("./cars")
 
 app.use((req, res, next) => {
-  console.log(`Request: ${req.method} ${req.originalUrl}`)
+  res.on("finish", () => {
+    console.log(`Request: ${req.method} ${req.originalUrl} ${res.statusCode}`)
+  })
   next();
 })
 
@@ -43,16 +45,23 @@ app.get("/cars", (req, res) => {
 app.get("/cars/:id", (req, res) => {
   const carId = parseInt(req.params.id, 10)
   const car = cars.find((car) => car.id === carId);
-  res.send(car);
+  if (car) {
+    res.send(car);
+  } else {
+    res.status(404).send({ message: "Car not found" })
+  }
 })
 
 // create a new car
 app.post("/cars", (req, res) => {
-  const newCar = req.body;
-  console.log("newCar", newCar)
+  const newCar = {
+    ...req.body,
+    id: getNextIdFromCollection(cars),
+  };
   cars.push(newCar);
-  res.send(newCar);
-})
+  console.log("newCar", newCar);
+  res.status(201).send(newCar);
+});
 
 // update a specific car
 app.patch("/cars/:id", (req, res) => {
@@ -62,7 +71,12 @@ app.patch("/cars/:id", (req, res) => {
   const updatedCar = { ...cars[carIndex], ...carUpdates };
   cars[carIndex] = updatedCar;
   // console.log("updatedCar", updatedCar)
-  res.send(updatedCar);
+  if (carIndex !== -1) {
+    cars[carIndex] = updatedCar;
+    res.status(201).send(updatedCar);
+  } else {
+    res.status(404).send({ message: "Car not found" });
+  }
 
 })
 
