@@ -18,16 +18,6 @@ function getNextIdFromCollection(collection) {
   return lastRecord.id + 1;
 }
 
-app.post("/cars", (req, res) => {
-  const newCar = {
-    ...req.body,
-    id: getNextIdFromCollection(cars)
-  };
-  console.log(newCar, "newCar")
-  cars.push(newCar)
-  res.send(newCar)
-})
-
 app.get("/", (req, res) => {
   res.send("Hello! Car API")
 })
@@ -56,12 +46,12 @@ app.get("/cars/:id", (req, res) => {
 app.post("/cars", (req, res) => {
   const newCar = {
     ...req.body,
-    id: getNextIdFromCollection(cars),
+    id: getNextIdFromCollection(cars)
   };
-  cars.push(newCar);
-  console.log("newCar", newCar);
-  res.status(201).send(newCar);
-});
+  console.log(newCar, "newCar")
+  cars.push(newCar)
+  res.status(201).send(newCar)
+})
 
 // update a specific car
 app.patch("/cars/:id", (req, res) => {
